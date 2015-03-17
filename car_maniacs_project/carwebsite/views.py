@@ -32,5 +32,11 @@ def compare(request):
     context_dict={}
 	
     return render(request, 'carwebsite/compare.html', context_dict)
+    
+def top_rated(request):
+
+    context_dict={}
+	
+    return render(request, 'carwebsite/top_rated.html', context_dict)
 	 
 

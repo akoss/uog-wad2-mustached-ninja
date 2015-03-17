@@ -1,3 +1,5 @@
 from django.contrib import admin
+from carwebsite.models import Manufacturer,Model
 
-# Register your models here.
+admin.site.register(Manufacturer)
+admin.site.register(Model)

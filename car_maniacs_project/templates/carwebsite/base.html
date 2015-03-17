@@ -17,8 +17,17 @@
 <li><a href="{% url 'index' %}">Home</a></li>
 <li><a href="{% url 'news' %}">News</a></li>
 <li><a href="{% url 'manufacturers' %}">Manufacturers</a></li>
+<li><a href="{% url 'top_rated' %}">Users' favourites</a></li>
 <li><a href="{% url 'new_cars' %}">New Cars</a></li>
 <li><a href="{% url 'compare' %}">Compare</a></li>
+       {% if user.is_authenticated %}
+           <li><a href="{% url 'auth_logout' %}?next=/carwebsite/">Logout</a></li>
+       {% else %}
+            <li><a href="{% url 'registration_register' %}">Register Here</a></li>
+            <li><a href="{% url 'auth_login' %}">Login</a></li>
+       {% endif %}
 </ul>
+
+{% block body_block %}{% endblock %}
 
 </html>
