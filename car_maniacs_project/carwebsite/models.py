@@ -26,7 +26,7 @@ class Model(models.Model):
     acceleration = models.IntegerField(default=0)
     handling = models.IntegerField(default=0)
     security = models.IntegerField(default=0)
-    yearOfRelease = models.IntegerField(default=2010)
+    dateOfRelease = models.DateField()
     price = models.IntegerField(default=0)
     
     def save(self, *args, **kwargs):

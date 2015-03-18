@@ -1,4 +1,14 @@
 <!DOCTYPE html>
 {% extends "carwebsite/base.html" %}
 
-{% block title %} {% endblock %}
+{% block title %}Home {% endblock %}
+
+{% block body_block %}
+<div class="page-header">
+            {% if user.is_authenticated %}
+                <h1>Welcome {{ user.username }}!</h1>
+            {% else %}
+                <h1>Welcome</h1>
+            {% endif %}
+</div>
+{% endblock %}
