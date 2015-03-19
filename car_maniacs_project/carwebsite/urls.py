@@ -10,4 +10,5 @@ urlpatterns = patterns('',
 		url(r'^new_cars',views.new_cars,name='new_cars'),
 		url(r'^compare',views.compare,name='compare'),
         url(r'^top_rated',views.top_rated,name='top_rated'),
+        url(r'^search',views.search,name='search'),
 		)

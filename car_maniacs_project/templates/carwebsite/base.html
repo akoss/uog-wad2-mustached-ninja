@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script type=”text/javascript” src=”http://jqueryjs.googlecode.com/files/jquery-1.2.6.js”></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,6 +43,7 @@
                 <li><a href="{% url 'top_rated' %}">Users' favourites</a></li>
                 <li><a href="{% url 'new_cars' %}">New Cars</a></li>
                 <li><a href="{% url 'compare' %}">Compare</a></li>
+		<li><a href="{% url 'search' %}">Search</a></li>
                     {% if user.is_authenticated %}
                          <li><a href="{% url 'auth_logout' %}?next=/carwebsite/">Logout</a></li>
                     {% else %}
@@ -53,7 +55,33 @@
               </ul>
         </div>
       </div>
-    </div>  
+    </div> 
+
+<script type=”text/javascript”>
+$( document ).ready( function() {
+$( ‘#searchSubmit’ ).click( function() {
+q = $( ‘#q’ ).val();
+$( ‘#results’ ).html( ‘&nbsp;’ ).load( ‘{% search %}?q=’ + q );
+});
+});
+ 
+$( document ).ajaxStart( function() {
+$( ‘#spinner’ ).show();
+}).ajaxStop( function() {
+$( ‘#spinner’ ).hide();
+});
+</script>
+ 
+<div>
+<input id=”q” type=”text”/>
+<input id=”searchSubmit” type=”submit” value=”Search”/>
+<br/>
+<span class=”hint”>Search for cars</span>
+<div class=”margin”>
+<span id=”spinner”><img src=”http://upload.wikimedia.org/wikipedia/commons/d/de/Ajax-loader.gif”/></span>
+<div id=”results”></div>
+</div>
+</div>
 
 
         </div>
