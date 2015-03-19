@@ -2,3 +2,18 @@
 {% extends "carwebsite/base.html" %}
 
 {% block title %} Top Cars {% endblock %}
+
+{% block body_block %}
+
+<h1>Favourite cars</h1>
+        {% if favourites %}
+        <ul class="list-group">
+                {% for model in favourites %}
+                        <li class="list-group-item"><a href="{% url 'model' model.manufacturer.slug  model.slug %} ">{{model.title}}</a></li>
+                {% endfor %}
+                </ul>
+        {% else %}
+                <strong>No cars currently in the database</strong>
+    {% endif %}
+                
+{% endblock %}

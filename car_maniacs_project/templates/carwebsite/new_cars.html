@@ -2,3 +2,18 @@
 {% extends "carwebsite/base.html" %}
 
 {% block title %} New Cars {% endblock %}
+
+{% block body_block %}
+
+<h1>New cars</h1>
+        {% if newest %}
+        <ul class="list-group">
+                {% for car in newest %}
+                        <li class="list-group-item"><a href="{% url 'model' car.manufacturer.slug  car.slug %} ">{{car.title}}</a></li>
+                {% endfor %}
+                </ul>
+        {% else %}
+                <strong>No cars currently in the database</strong>
+    {% endif %}
+                
+{% endblock %}

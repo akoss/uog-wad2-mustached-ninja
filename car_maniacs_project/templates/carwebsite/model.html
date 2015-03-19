@@ -1,0 +1,30 @@
+{% extends 'carwebsite/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}{{ manufacturer_name }} {{model_name}}{% endblock %}
+
+{% block body_block %}
+    <h1>{{ manufacturer_name }}</h1>
+    {% if manufacturer %}
+        {% if model %}
+        <ul class="list-group">
+                    <li class="list-group-item">Model:{{model.title}}</li>
+                    <li class="list-group-item">Speed:{{model.speed}}</li>
+                    <li class="list-group-item">Acceleration:{{model.acceleration}}</li>
+                    <li class="list-group-item"> Handling:{{model.handling}}</li>
+                    <li class="list-group-item">Security:{{model.security}}</li>
+                    <li class="list-group-item">Average ratings:{{model.averageRatings}}</li>
+                    <li class="list-group-item">Price:{{model.price}}</li>
+                    <li class="list-group-item">Date of release:{{model.dateOfRelease}}</li>
+           
+                    
+                </ul>
+        {% else %}
+                <strong>Model does not exist</strong>
+        {% endif %}
+    {% else %}
+         <strong>Manufacturer is not registered.</strong>  
+    {% endif %}         
+                
+{% endblock %}

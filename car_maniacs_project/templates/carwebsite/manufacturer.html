@@ -1,0 +1,24 @@
+{% extends 'carwebsite/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}{{ manufacturer_name }}{% endblock %}
+
+{% block body_block %}
+    <h1>{{ manufacturer_name }}</h1>
+    {% if manufacturer %}
+        {% if models %}
+        <ul class="list-group">
+            {% for model in  models %} 
+                    <li class="list-group-item"><a href="{% url 'model' manufacturer.slug model.slug %}">{{model.title}}</a></li>
+            {% endfor %}        
+                </ul>
+        {% else %}
+                <strong>No models registered for this manufacturer.</strong>
+        {% endif %}
+    {% else %}
+         <strong>Manufacturer is not registered.</strong>  
+    {% endif %}         
+                
+
+{% endblock %}
