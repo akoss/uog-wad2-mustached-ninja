@@ -7,10 +7,11 @@
 
 {% if results|length %}
 
-<h1><strong>Found {{ results|length }} users</strong></h1>
+<h1 style="color:white;">Found {{ results|length }} car(s)</h1>
+<hr/>
         <ul class="list-group">
-                {% for Model in results %}
-                        <li class="list-group-item"><a href="{% url 'model' car.manufacturer.slug  car.slug %} ">{{car.title}}</a></li>
+                {% for model in results %}
+                        <li class="list-group-item"><a href="{% url 'model' model.manufacturer.slug  model.slug %} ">{{model.title}}</a></li>
                 {% endfor %}
                 </ul>
         {% else %}

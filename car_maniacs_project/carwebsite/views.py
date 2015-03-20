@@ -79,17 +79,15 @@ def model(request, manufacturer_name_slug,model_name_slug):
     return render(request, 'carwebsite/model.html', context_dict)
 
 
-#def search( request ):
+def search(request):
+
+    context_dict = {}
+    q = request.POST['query'].strip()
+        
+    results = Model.objects.filter(title = q).order_by( 'manufacturer' )
+
+    context_dict['results']=results
  
-#   if request.is_ajax():
-#       q = request.GET.get( 'q' )
-#        if q is not None:            
-#           results = Model.objects.filter( 
-#                Q( manufacturer__contains = q ) |
-#              Q( title__contains = q )).order_by( 'manufacturer' )
-#
-#            context_dict['results']=results
-#
-#            return render(request, 'carwebsite/results.html',context_dict)
+    return render(request, 'carwebsite/results.html',context_dict)
 
 
