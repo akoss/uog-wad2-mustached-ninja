@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from carwebsite.models import Manufacturer,Model
+#from django.db.models import Q
 
 def index(request):
     
@@ -76,4 +77,19 @@ def model(request, manufacturer_name_slug,model_name_slug):
 
 
     return render(request, 'carwebsite/model.html', context_dict)
+
+
+#def search( request ):
+ 
+#   if request.is_ajax():
+#       q = request.GET.get( 'q' )
+#        if q is not None:            
+#           results = Model.objects.filter( 
+#                Q( manufacturer__contains = q ) |
+#              Q( title__contains = q )).order_by( 'manufacturer' )
+#
+#            context_dict['results']=results
+#
+#            return render(request, 'carwebsite/results.html',context_dict)
+
 

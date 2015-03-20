@@ -7,6 +7,7 @@ class Manufacturer(models.Model):
     #view = models.IntegerField(default=0)
     #ikes = models.IntegerField(default=0)
     slug = models.SlugField(unique=True,max_length=50)
+    picture = models.ImageField(upload_to='static/images', blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

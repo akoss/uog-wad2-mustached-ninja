@@ -8,11 +8,18 @@
     <h1 style="color:white;">{{ manufacturer_name }}</h1>
     {% if manufacturer %}
         {% if model %}
+                  <!--
                  {%if model.picture%}
-                       <p> {{model.picture.url}}</p>
-                       <img=<img idth="180" height="200" src="static/images {{model.picture}}">
+                       <img width="360" height="200" src="/{{model.picture.url}}">
+                  
                  {% endif %}
+                 -->
         <ul class="list-group">
+                    {%if model.picture%}
+                               <li class="list-group-item" style="background:gray;"><img width="400" height="200" src="/{{model.picture.url}}"></li>
+                    {% else %}
+                                <li class="list-group-item">No picture available</li>
+                    {% endif %}
                     <li class="list-group-item">Model:{{model.title}}</li>
                     <li class="list-group-item">Speed:{{model.speed}}</li>
                     <li class="list-group-item">Acceleration:{{model.acceleration}}</li>

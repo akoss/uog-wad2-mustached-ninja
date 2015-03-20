@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% extends "carwebsite/base.html" %}
+
+{% block title %} Results {% endblock %}
+
+{% block body_block %}
+
+{% if results|length %}
+
+<h1><strong>Found {{ results|length }} users</strong></h1>
+        <ul class="list-group">
+                {% for Model in results %}
+                        <li class="list-group-item"><a href="{% url 'model' car.manufacturer.slug  car.slug %} ">{{car.title}}</a></li>
+                {% endfor %}
+                </ul>
+        {% else %}
+            <strong>No cars found</strong>
+{% endif %}
+                
+{% endblock %}

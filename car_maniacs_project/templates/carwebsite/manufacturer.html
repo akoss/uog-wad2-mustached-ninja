@@ -10,6 +10,9 @@
     {% if manufacturer %}
         {% if models %}
         <ul class="list-group">
+                   {%if manufacturer.picture%}
+                               <li class="list-group-item" style="background:gray;"><img width="400" height="200" src="/{{manufacturer.picture.url}}"></li>
+                    {% endif %}
             {% for model in  models %} 
                     <li class="list-group-item"><a href="{% url 'model' manufacturer.slug model.slug %}">{{model.title}}</a></li>
             {% endfor %}        
