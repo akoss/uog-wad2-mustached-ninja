@@ -43,7 +43,7 @@
                 <li><a href="{% url 'top_rated' %}">Users' favourites</a></li>
                 <li><a href="{% url 'new_cars' %}">New Cars</a></li>
                 <li><a href="{% url 'compare' %}">Compare</a></li>
-		<li><a href="{% url 'search' %}">Search</a></li>
+		
                     {% if user.is_authenticated %}
                          <li><a href="{% url 'auth_logout' %}?next=/carwebsite/">Logout</a></li>
                     {% else %}
@@ -61,7 +61,7 @@
 $( document ).ready( function() {
 $( ‘#searchSubmit’ ).click( function() {
 q = $( ‘#q’ ).val();
-$( ‘#results’ ).html( ‘&nbsp;’ ).load( ‘{% search %}?q=’ + q );
+$( ‘#results’ ).html( ‘&nbsp;’ ).load( ‘{% url 'search' %}?q=’ + q );
 });
 });
  
