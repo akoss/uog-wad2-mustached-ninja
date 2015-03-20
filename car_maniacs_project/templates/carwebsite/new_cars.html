@@ -5,11 +5,12 @@
 
 {% block body_block %}
 
-<h1>New cars</h1>
+<h1 style="color:white;">New cars</h1>
+<hr/>
         {% if newest %}
         <ul class="list-group">
                 {% for car in newest %}
-                        <li class="list-group-item"><a href="{% url 'model' car.manufacturer.slug  car.slug %} ">{{car.title}}</a></li>
+                        <li class="list-group-item"><a href="{% url 'model' car.manufacturer.slug  car.slug %} ">{{car.title}}- released {{car.dateOfRelease}}</a></li>
                 {% endfor %}
                 </ul>
         {% else %}

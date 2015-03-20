@@ -1,0 +1,14 @@
+{% if mans %}
+    <ul class="nav nav-sidebar">
+
+{% for m in mans %}
+    {% if m == act_man %} <li  class="active" > {% else  %} <li>{% endif %}
+            <a href="{% url 'manufacturer'  m.slug %}">{{ m.name }}</a></li>
+{% endfor %}
+
+
+{% else %}
+    <li> <strong >There are no manufacturers present.</strong></li>
+
+    </ul>
+{% endif %}

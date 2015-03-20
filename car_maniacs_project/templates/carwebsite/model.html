@@ -5,9 +5,13 @@
 {% block title %}{{ manufacturer_name }} {{model_name}}{% endblock %}
 
 {% block body_block %}
-    <h1>{{ manufacturer_name }}</h1>
+    <h1 style="color:white;">{{ manufacturer_name }}</h1>
     {% if manufacturer %}
         {% if model %}
+                 {%if model.picture%}
+                       <p> {{model.picture.url}}</p>
+                       <img=<img idth="180" height="200" src="static/images {{model.picture}}">
+                 {% endif %}
         <ul class="list-group">
                     <li class="list-group-item">Model:{{model.title}}</li>
                     <li class="list-group-item">Speed:{{model.speed}}</li>

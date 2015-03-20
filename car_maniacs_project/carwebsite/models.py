@@ -18,6 +18,7 @@ class Manufacturer(models.Model):
    #    verbose_name_plural="Categories";
 
 class Model(models.Model):
+    picture = models.ImageField(upload_to='static/images', blank=True)
     manufacturer = models.ForeignKey(Manufacturer)
     title = models.CharField(max_length=128,unique=True)
     url = models.URLField()

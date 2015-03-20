@@ -23,12 +23,6 @@ def new_cars(request):
 	
     return render(request, 'carwebsite/new_cars.html', context_dict)
 	
-
-def manufacturers(request):
-    
-	context_dict={}
-	
-	return render(request, 'carwebsite/manufacturers.html', context_dict)
 	
 def compare(request):
 
