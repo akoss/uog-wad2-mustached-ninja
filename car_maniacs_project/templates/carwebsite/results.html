@@ -5,6 +5,7 @@
 
 {% block body_block %}
 
+
 {% if results|length %}
 
 <h1 style="color:white;">Found {{ results|length }} car(s)</h1>
@@ -15,7 +16,7 @@
                 {% endfor %}
                 </ul>
         {% else %}
-            <strong>No cars found</strong>
+            <h1 style="color:white;">No cars found</h1>
 {% endif %}
                 
 {% endblock %}

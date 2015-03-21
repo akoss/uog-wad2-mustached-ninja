@@ -69,7 +69,7 @@ class Review(models.Model):
 		super(Review, self).save(*args, **kwargs) 
 		
 		# And recalculate the new average ratings for the reviewed model
-		# Everything under this should be a cron job in the long run
+		# Everything under this should be a cron job
 		
 		reviews = Review.objects.all().filter(model=self.model)
 		speedSum = 0

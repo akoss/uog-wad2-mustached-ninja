@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from carwebsite.models import Manufacturer,Model,Review
-#from django.db.models import Q
+from django.db.models import Q
 from django.template import RequestContext
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
@@ -110,8 +110,7 @@ def rate(request, manufacturer_name_slug,model_name_slug):
 			review.save()
 			# Also, we return to the previous page with a special message. 
 			context_dict["rated"] = True    
-			#return render(request, 'carwebsite/model.html', context_dict)
-			return redirect('model', manufacturer_name_slug=manufacturer.slug,model_name_slug=model.slug, rated=True)
+			return render(request, 'carwebsite/model.html', context_dict)
     	else: 
     		# If a review's being posted but the data are incorrect, we display a warning. 
     		context_dict["again"] = True
@@ -128,7 +127,8 @@ def search(request):
     context_dict = {}
     q = request.POST['query'].strip()
         
-    results = Model.objects.filter(title = q).order_by( 'manufacturer' )
+    
+    results = Model.objects.filter(Q(manufacturer__name__icontains=q)| Q(title__icontains = q))
 
     context_dict['results']=results
  
