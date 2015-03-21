@@ -20,7 +20,7 @@ def populate():
         acceleration="10",
         handling="5",
         security="3",
-        #dateOfRelease= datetime.now(),
+        dateOfRelease= datetime.now(),
         price="11000")
 
     add_model(manu=toyota,
@@ -30,7 +30,7 @@ def populate():
         acceleration="7",
         handling="4",
         security="2",
-       # dateOfRelease= datetime.now(),
+        dateOfRelease= datetime.now(),
         price="9000")
 
     add_model(manu=toyota,
@@ -40,7 +40,7 @@ def populate():
         acceleration="107",
         handling="5",
         security="5",
-       # dateOfRelease= datetime.now(),
+        dateOfRelease= datetime.now(),
         price="15000")
 
     honda = add_manu('Honda')
@@ -52,7 +52,7 @@ def populate():
         acceleration="9",
         handling="5",
         security="4",
-        #dateOfRelease= datetime.now(),
+        dateOfRelease= datetime.now(),
         price="8000")
 
     add_model(manu=honda,
@@ -62,7 +62,7 @@ def populate():
         acceleration="6",
         handling="2",
         security="1",
-        #dateOfRelease= datetime.now(),
+        dateOfRelease= datetime.now(),
         price="12000")
 
     hyundai = add_manu('Hyundai')
@@ -74,18 +74,18 @@ def populate():
         acceleration="10",
         handling="5",
         security="3",
-       # dateOfRelease= datetime.now(),
+        dateOfRelease= datetime.now(),
         price="14000")
 
 
     # Print out what we have added to the user.
-    for manu in Manufacturer.objects.all():
-        for model in Model.objects.filter(manu=manu):
-            print "- {0} - {1}".format(str(c), str(p))
+    for manufac in Manufacturer.objects.all():
+        for model in Model.objects.filter(manufacturer=manufac):
+            print "Added " + manufac.name + " " + model.title
 
-def add_model(manu, title, url, speed, acceleration, handling, security, price):
+def add_model(manu, title, url, speed, acceleration, handling, security, dateOfRelease, price):
     model = Model.objects.get_or_create(manufacturer=manu, title=title, url=url, speed=speed, acceleration=acceleration,
-                                        handling=handling, security=security,
+                                        handling=handling, security=security, dateOfRelease=dateOfRelease,
                                      price=price)[0]
     return model
 
