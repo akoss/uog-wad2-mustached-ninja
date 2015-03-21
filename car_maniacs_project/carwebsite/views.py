@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from carwebsite.models import Manufacturer,Model
+from carwebsite.models import Manufacturer,Model,Review
 #from django.db.models import Q
+from django.template import RequestContext
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     
@@ -56,21 +60,16 @@ def manufacturer(request, manufacturer_name_slug):
     return render(request, 'carwebsite/manufacturer.html', context_dict)
     
 def model(request, manufacturer_name_slug,model_name_slug):
-
     context_dict = {}
-
+    context_dict["rated"] = False
+      
     try:
-        print  manufacturer_name_slug
         manufacturer = Manufacturer.objects.get(slug=manufacturer_name_slug)
         model=Model.objects.get(slug=model_name_slug)
-        print  manufacturer_name_slug
         context_dict['manufacturer_name'] = manufacturer.name
         context_dict['model_name']=model.title
-        print model.manufacturer
-        print manufacturer.name
         if model.manufacturer==manufacturer:
             context_dict['model']=model
-            print "abc"
         context_dict['manufacturer'] = manufacturer
     except:
         pass
@@ -78,9 +77,49 @@ def model(request, manufacturer_name_slug,model_name_slug):
 
     return render(request, 'carwebsite/model.html', context_dict)
 
+@login_required
+def rate(request, manufacturer_name_slug,model_name_slug):
+    context_dict = {}
+    # Preparing context dict
+    try:
+        manufacturer = Manufacturer.objects.get(slug=manufacturer_name_slug)
+        model=Model.objects.get(slug=model_name_slug)
+        context_dict['manufacturer_name'] = manufacturer.name
+        context_dict['model_name']=model.title
+
+        if model.manufacturer==manufacturer:
+            context_dict['model']=model
+        context_dict['manufacturer'] = manufacturer
+    except:
+        pass
+	
+	# If a review's being posted: 
+    if request.method == 'POST':
+    	def validate(value): 
+    		return (int(value) > 0 and int(value) <= 5)
+
+    	# We check it
+    	if validate(request.POST["acceleration"]) and validate(request.POST["speed"]) and validate(request.POST["handling"]) and validate(request.POST["security"]):
+			# Create an object for it
+    		review = Review.create(request.user, model, int(float(request.POST["acceleration"])), int(float(request.POST["speed"])), int(float(request.POST["handling"])), int(float(request.POST["security"])))
+			# And store it. 
+    		review.save() 
+			# Also, we return to the previous page with a special message. 
+    		context_dict["rated"] = True    
+    		return render(request, 'carwebsite/model.html', context_dict)
+    	else: 
+    		# If a review's being posted but the data are incorrect, we display a warning. 
+    		context_dict["again"] = True
+	        return render(request, 'carwebsite/rate.html', context_dict)
+    else:
+    	# If a review's not being posted we serve the actual form. 
+    	context_dict["rated"] = False
+    	context_dict["again"] = False
+		
+    return render(request, 'carwebsite/rate.html', context_dict)
+
 
 def search(request):
-
     context_dict = {}
     q = request.POST['query'].strip()
         

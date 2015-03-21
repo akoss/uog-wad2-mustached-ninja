@@ -8,18 +8,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="http://vignette2.wikia.nocookie.net/cityville/images/9/99/Car_Inferno.png/revision/latest?cb=20120719005825">
-
-    <title>CarManiacs {% block title %}How to Tango with Django!{% endblock %}</title>
-    
+	
+    <title>CarManiacs {% block title %} How to Tango with Django! {% endblock %}</title>
+    <link href="/static/carmaniacs.css" rel="stylesheet">
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
   
- <body style="background:url(/static/images/car.jpg) no-repeat top center fixed;">
+ <body style="background:url(/static/images/car.jpg) no-repeat top center fixed;" onload="if(typeof(customOnload) == 'function') customOnload();">
   
 
  <div class="wrap" >

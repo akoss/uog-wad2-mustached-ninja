@@ -1,6 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-#from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=128, unique=True)
@@ -39,6 +39,71 @@ class Model(models.Model):
 
     def __unicode__(self):
         return self.title
+
+class Review(models.Model): 
+	reviewer = models.ForeignKey(User, unique=False)
+	model = models.ForeignKey(Model, unique=False)
+	speed = models.IntegerField(default=0)
+	acceleration = models.IntegerField(default=0)
+	handling = models.IntegerField(default=0)
+	security = models.IntegerField(default=0)
+	
+	@classmethod
+	def create(cls, reviewer=reviewer, model=model, speed=speed, acceleration=acceleration, handling=handling, security=security): 
+		review = cls()
+		review.reviewer = reviewer
+		review.model = model 
+		review.speed = speed 
+		review.acceleration = acceleration
+		review.handling = handling
+		review.security = security
+		return review
+    
+	def save(self, *args, **kwargs): 
+		# If there's already a review from the same person in the database, we delete it 
+		reviews = Review.objects.all().filter(reviewer=self.reviewer)
+		for each in reviews: 
+			each.delete() 
+		
+		# We save the new record
+		super(Review, self).save(*args, **kwargs) 
+		
+		# And recalculate the new average ratings for the reviewed model
+		# Everything under this should be a cron job
+		
+		reviews = Review.objects.all().filter(model=self.model)
+		speedSum = 0
+		accelerationSum = 0
+		handlingSum = 0
+		securitySum = 0
+		
+		for each in reviews: 
+			speedSum = speedSum + each.speed
+			accelerationSum = speedSum + each.acceleration
+			handlingSum = speedSum + each.handling
+			securitySum = speedSum + each.security
+			
+		speedSum = speedSum / len(reviews)
+		accelerationSum = accelerationSum / len(reviews)
+		handlingSum = handlingSum / len(reviews)
+		securitySum = securitySum / len(reviews)
+		
+		averageRatings = (speedSum + accelerationSum + handlingSum + securitySum) / 4
+		
+		model = Model.objects.get(slug=self.model.slug)
+		model.averageRatings = averageRatings
+		model.speed = speedSum
+		model.acceleration = accelerationSum
+		model.handling = handlingSum
+		model.security = securitySum
+		
+		model.save()
+		
+    	
+	def __unicode__(self):
+		return self.title
+	
+
 
 #class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.

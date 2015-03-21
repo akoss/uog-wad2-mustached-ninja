@@ -5,7 +5,23 @@
 {% block title %}{{ manufacturer_name }} {{model_name}}{% endblock %}
 
 {% block body_block %}
+	<script>
+	customOnload = function(){
+		$("[name='speedStars']").css('width',({{model.speed}}*20).toString() + "%");
+		$("[name='accelerationStars']").css('width',({{model.acceleration}}*20).toString() + "%");
+		$("[name='handlingStars']").css('width',({{model.handling}}*20).toString() + "%");
+		$("[name='securityStars']").css('width',({{model.security}}*20).toString() + "%");
+		$("[name='averageRatingsStars']").css('width',({{model.averageRatings}}*20).toString() + "%");
+	}
+	</script>
     <h1 style="color:white;">{{ manufacturer_name }}</h1>
+    {% if rated %}
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Success!</strong><br/>
+        We've received your ratings!
+    </div>
+    {% endif %}
     {% if manufacturer %}
         {% if model %}
                   <!--
@@ -21,13 +37,36 @@
                                 <li class="list-group-item">No picture available</li>
                     {% endif %}
                     <li class="list-group-item">Model:{{model.title}}</li>
-                    <li class="list-group-item">Speed:{{model.speed}}</li>
-                    <li class="list-group-item">Acceleration:{{model.acceleration}}</li>
-                    <li class="list-group-item"> Handling:{{model.handling}}</li>
-                    <li class="list-group-item">Security:{{model.security}}</li>
-                    <li class="list-group-item">Average ratings:{{model.averageRatings}}</li>
-                    <li class="list-group-item">Price:{{model.price}}</li>
-                    <li class="list-group-item">Date of release:{{model.dateOfRelease}}</li>
+                    <li class="list-group-item">Speed: 
+                    
+                    <span style="display: block; width: 65px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="speedStars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+                    
+                    </li>
+                    <li class="list-group-item">Acceleration: 
+                    <span style="display: block; width: 65px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="accelerationStars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+					</li>
+                    <li class="list-group-item"> Handling: <span class="stars">
+                    <span style="display: block; width: 65px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="handlingStars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+					</li>
+                    <li class="list-group-item">Security: <span class="stars">
+                	<span style="display: block; width: 65px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="securityStars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+                    </li>
+                    <li class="list-group-item">Average ratings: <span class="stars">
+                    <span style="display: block; width: 65px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="averageRatingsStars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+					</span></li>
+                    <li class="list-group-item">Price: {{model.price}}</li>
+                    <li class="list-group-item">Date of release: {{model.dateOfRelease}}</li>
+                    <li class="list-group-item">Got one?<br/><a href="{% url 'rate' model.manufacturer.slug  model.slug %}">Click here to review this car.</a></li>
            
                     
                 </ul>
