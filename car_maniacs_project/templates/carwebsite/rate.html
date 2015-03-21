@@ -1,0 +1,87 @@
+{% extends 'carwebsite/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}{{ manufacturer_name }} {{model_name}}{% endblock %}
+
+{% block body_block %}
+    <h1 style="color:white;">{{ manufacturer_name }}</h1>
+    {% if manufacturer %}
+        {% if model %}
+                  <!--
+                 {%if model.picture%}
+                       <img width="360" height="200" src="/{{model.picture.url}}">
+                  
+                 {% endif %}
+                 -->
+        <ul class="list-group">
+			{%if model.picture%}
+					   <li class="list-group-item" style="background:gray;"><img width="400" height="200" src="/{{model.picture.url}}"></li>
+			{% else %}
+						<li class="list-group-item">No picture available</li>
+			{% endif %}    
+			{% if again %}
+			<div class="alert alert-warning">
+				<a href="#" class="close" data-dismiss="alert">&times;</a>
+				<strong></strong> Please select a value for all criteria.
+			</div>
+			{% endif %}       
+			<form method="post">
+			{% csrf_token %}
+			<li class="list-group-item">
+				<div class="rating_type">Speed</div>
+				<div class="rating">
+					<input type="radio" name="speed" value="0" checked /><span id="hide"></span>
+					<input type="radio" name="speed" value="1" /><span></span>
+					<input type="radio" name="speed" value="2" /><span></span>
+					<input type="radio" name="speed" value="3" /><span></span>
+					<input type="radio" name="speed" value="4" /><span></span>
+					<input type="radio" name="speed" value="5" /><span></span>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div class="rating_type">Acceleration</div>
+				<div class="rating">
+					<input type="radio" name="acceleration" value="0" checked /><span id="hide"></span>
+					<input type="radio" name="acceleration" value="1" /><span></span>
+					<input type="radio" name="acceleration" value="2" /><span></span>
+					<input type="radio" name="acceleration" value="3" /><span></span>
+					<input type="radio" name="acceleration" value="4" /><span></span>
+					<input type="radio" name="acceleration" value="5" /><span></span>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div class="rating_type">Handling</div>
+				<div class="rating">
+					<input type="radio" name="handling" value="0" checked /><span id="hide"></span>
+					<input type="radio" name="handling" value="1" /><span></span>
+					<input type="radio" name="handling" value="2" /><span></span>
+					<input type="radio" name="handling" value="3" /><span></span>
+					<input type="radio" name="handling" value="4" /><span></span>
+					<input type="radio" name="handling" value="5" /><span></span>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div class="rating_type">Security</div>
+				<div class="rating">
+					<input type="radio" name="security" value="0" checked /><span id="hide"></span>
+					<input type="radio" name="security" value="1" /><span></span>
+					<input type="radio" name="security" value="2" /><span></span>
+					<input type="radio" name="security" value="3" /><span></span>
+					<input type="radio" name="security" value="4" /><span></span>
+					<input type="radio" name="security" value="5" /><span></span>
+				</div>
+			</li>
+			<li class="list-group-item">
+					<input type="submit" value="Save">
+			</li>
+			</form>
+        </ul>
+        {% else %}
+                <strong>Model does not exist</strong>
+        {% endif %}
+    {% else %}
+         <strong>Manufacturer is not registered.</strong>  
+    {% endif %}         
+                
+{% endblock %}
