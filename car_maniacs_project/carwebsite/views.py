@@ -59,9 +59,9 @@ def manufacturer(request, manufacturer_name_slug):
 
     return render(request, 'carwebsite/manufacturer.html', context_dict)
     
-def model(request, manufacturer_name_slug,model_name_slug):
+def model(request, manufacturer_name_slug,model_name_slug, rated=False):
     context_dict = {}
-    context_dict["rated"] = False
+    context_dict["rated"] = rated
       
     try:
         manufacturer = Manufacturer.objects.get(slug=manufacturer_name_slug)
@@ -111,7 +111,7 @@ def rate(request, manufacturer_name_slug,model_name_slug):
 			# Also, we return to the previous page with a special message. 
 			context_dict["rated"] = True    
 			#return render(request, 'carwebsite/model.html', context_dict)
-			return redirect('model', manufacturer_name_slug=manufacturer.slug,model_name_slug=model.slug)
+			return redirect('model', manufacturer_name_slug=manufacturer.slug,model_name_slug=model.slug, rated=True)
     	else: 
     		# If a review's being posted but the data are incorrect, we display a warning. 
     		context_dict["again"] = True
