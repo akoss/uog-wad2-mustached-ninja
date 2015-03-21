@@ -70,6 +70,8 @@ def model(request, manufacturer_name_slug,model_name_slug):
         context_dict['model_name']=model.title
         if model.manufacturer==manufacturer:
             context_dict['model']=model
+            print "MODEL: "
+            print model
         context_dict['manufacturer'] = manufacturer
     except:
         pass
@@ -92,7 +94,7 @@ def rate(request, manufacturer_name_slug,model_name_slug):
         context_dict['manufacturer'] = manufacturer
     except:
         pass
-	
+	 
 	# If a review's being posted: 
     if request.method == 'POST':
     	def validate(value): 
@@ -101,12 +103,13 @@ def rate(request, manufacturer_name_slug,model_name_slug):
     	# We check it
     	if validate(request.POST["acceleration"]) and validate(request.POST["speed"]) and validate(request.POST["handling"]) and validate(request.POST["security"]):
 			# Create an object for it
-    		review = Review.create(request.user, model, int(float(request.POST["acceleration"])), int(float(request.POST["speed"])), int(float(request.POST["handling"])), int(float(request.POST["security"])))
+			print "Posting review as acceleration: " + str(int(float(request.POST["acceleration"]))) + ", speed: " + str(int(float(request.POST["speed"]))) + ", handling: " + str(int(float(request.POST["handling"]))) + ", security: " + str(int(float(request.POST["security"])))
+			review = Review.create(reviewer=request.user, model=model, speed=int(float(request.POST["speed"])), acceleration=int(float(request.POST["acceleration"])), handling=int(float(request.POST["handling"])), security=int(float(request.POST["security"])))
 			# And store it. 
-    		review.save() 
+			review.save()
 			# Also, we return to the previous page with a special message. 
-    		context_dict["rated"] = True    
-    		return render(request, 'carwebsite/model.html', context_dict)
+			context_dict["rated"] = True    
+			return render(request, 'carwebsite/model.html', context_dict)
     	else: 
     		# If a review's being posted but the data are incorrect, we display a warning. 
     		context_dict["again"] = True

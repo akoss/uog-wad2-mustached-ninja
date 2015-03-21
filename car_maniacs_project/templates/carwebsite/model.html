@@ -5,6 +5,13 @@
 {% block title %}{{ manufacturer_name }} {{model_name}}{% endblock %}
 
 {% block body_block %}
+	<!--- 
+	Speed: {{model.speed}}
+	Acceleration: {{model.acceleration}}
+	Handling: {{model.handling}}
+	Security: {{model.security}}
+	Average: {{model.averageRatings}}
+	-->
 	<script>
 	customOnload = function(){
 		$("[name='speedStars']").css('width',({{model.speed}}*20).toString() + "%");

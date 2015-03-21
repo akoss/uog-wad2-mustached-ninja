@@ -79,16 +79,16 @@ class Review(models.Model):
 		
 		for each in reviews: 
 			speedSum = speedSum + each.speed
-			accelerationSum = speedSum + each.acceleration
-			handlingSum = speedSum + each.handling
-			securitySum = speedSum + each.security
+			accelerationSum = accelerationSum + each.acceleration
+			handlingSum = handlingSum + each.handling
+			securitySum = securitySum + each.security
 			
 		speedSum = speedSum / len(reviews)
 		accelerationSum = accelerationSum / len(reviews)
 		handlingSum = handlingSum / len(reviews)
 		securitySum = securitySum / len(reviews)
 		
-		averageRatings = (speedSum + accelerationSum + handlingSum + securitySum) / 4
+		averageRatings = (speedSum + accelerationSum + handlingSum + securitySum) / 4.0
 		
 		model = Model.objects.get(slug=self.model.slug)
 		model.averageRatings = averageRatings
