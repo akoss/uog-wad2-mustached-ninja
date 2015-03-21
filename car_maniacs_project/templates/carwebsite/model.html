@@ -14,11 +14,11 @@
 	-->
 	<script>
 	customOnload = function(){
-		$("[name='speedStars']").css('width',({{model.speed}}*20).toString() + "%");
-		$("[name='accelerationStars']").css('width',({{model.acceleration}}*20).toString() + "%");
-		$("[name='handlingStars']").css('width',({{model.handling}}*20).toString() + "%");
-		$("[name='securityStars']").css('width',({{model.security}}*20).toString() + "%");
-		$("[name='averageRatingsStars']").css('width',({{model.averageRatings}}*20).toString() + "%");
+		$("[name='speedStars']").css('width',({{model.speed}}*10).toString() + "%");
+		$("[name='accelerationStars']").css('width',({{model.acceleration}}*10).toString() + "%");
+		$("[name='handlingStars']").css('width',({{model.handling}}*10).toString() + "%");
+		$("[name='securityStars']").css('width',({{model.security}}*10).toString() + "%");
+		$("[name='averageRatingsStars']").css('width',({{model.averageRatings}}*10).toString() + "%");
 	}
 	</script>
     <h1 style="color:white;">{{ manufacturer_name }}</h1>
@@ -46,28 +46,28 @@
                     <li class="list-group-item">Model:{{model.title}}</li>
                     <li class="list-group-item">Speed: 
                     
-                    <span style="display: block; width: 65px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+                    <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
 				    <span name="speedStars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
 					</span>
                     
                     </li>
                     <li class="list-group-item">Acceleration: 
-                    <span style="display: block; width: 65px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+                    <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
 				    <span name="accelerationStars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
 					</span>
 					</li>
                     <li class="list-group-item"> Handling: <span class="stars">
-                    <span style="display: block; width: 65px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+                    <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
 				    <span name="handlingStars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
 					</span>
 					</li>
                     <li class="list-group-item">Security: <span class="stars">
-                	<span style="display: block; width: 65px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+                	<span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
 				    <span name="securityStars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
 					</span>
                     </li>
                     <li class="list-group-item">Average ratings: <span class="stars">
-                    <span style="display: block; width: 65px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+                    <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
 				    <span name="averageRatingsStars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
 					</span>
 					</span></li>

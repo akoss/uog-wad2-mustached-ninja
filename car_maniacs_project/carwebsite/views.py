@@ -98,14 +98,15 @@ def rate(request, manufacturer_name_slug,model_name_slug):
 	# If a review's being posted: 
     if request.method == 'POST':
     	def validate(value): 
-    		return (int(value) > 0 and int(value) <= 5)
+    		return (int(value) > 0 and int(value) <= 10)
 
     	# We check it
     	if validate(request.POST["acceleration"]) and validate(request.POST["speed"]) and validate(request.POST["handling"]) and validate(request.POST["security"]):
-			# Create an object for it
+			# I put the thing down
 			print "Posting review as acceleration: " + str(int(float(request.POST["acceleration"]))) + ", speed: " + str(int(float(request.POST["speed"]))) + ", handling: " + str(int(float(request.POST["handling"]))) + ", security: " + str(int(float(request.POST["security"])))
 			review = Review.create(reviewer=request.user, model=model, speed=int(float(request.POST["speed"])), acceleration=int(float(request.POST["acceleration"])), handling=int(float(request.POST["handling"])), security=int(float(request.POST["security"])))
-			# And store it. 
+			# Flip it then reverse it. 
+			# I mean I save it. 
 			review.save()
 			# Also, we return to the previous page with a special message. 
 			context_dict["rated"] = True    
