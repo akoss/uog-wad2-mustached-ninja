@@ -22,7 +22,6 @@ class Model(models.Model):
     picture = models.ImageField(upload_to='static/images', blank=True)
     manufacturer = models.ForeignKey(Manufacturer)
     title = models.CharField(max_length=128,unique=True)
-    url = models.URLField()
     #views = models.IntegerField(default=0)
     averageRatings=models.FloatField(default=0.0)
     speed = models.IntegerField(default=0)
