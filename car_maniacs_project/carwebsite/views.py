@@ -76,8 +76,36 @@ def model(request, manufacturer_name_slug,model_name_slug, rated=False):
     except:
         pass
 
-
     return render(request, 'carwebsite/model.html', context_dict)
+
+def compare(request, manufacturer1_name_slug=None,manufacturer2_name_slug=None,model1_name_slug=None,model2_name_slug=None):
+    context_dict = {}
+    
+    try:
+        manufacturer1 = Manufacturer.objects.get(slug=manufacturer1_name_slug)
+        model1=Model.objects.get(slug=model1_name_slug)
+        context_dict['manufacturer1_name'] = manufacturer1.name
+        context_dict['model1_name']=model1.title
+        if model1.manufacturer==manufacturer1:
+            context_dict['model1']=model1
+        context_dict['manufacturer1'] = manufacturer1
+    except:
+        pass
+
+    try:
+        manufacturer2 = Manufacturer.objects.get(slug=manufacturer2_name_slug)
+        model2=Model.objects.get(slug=model2_name_slug)
+        context_dict['manufacturer2_name'] = manufacturer2.name
+        context_dict['model2_name']=model2.title
+        if model2.manufacturer==manufacturer2:
+            context_dict['model2']=model2
+        context_dict['manufacturer2'] = manufacturer2
+    except:
+        pass
+
+
+    return render(request, 'carwebsite/compare.html', context_dict)
+
 
 @login_required
 def rate(request, manufacturer_name_slug,model_name_slug):

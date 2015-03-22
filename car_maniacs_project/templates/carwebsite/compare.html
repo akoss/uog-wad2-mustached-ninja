@@ -1,4 +1,210 @@
-<!DOCTYPE html>
-{% extends "carwebsite/base.html" %}
+{% extends 'carwebsite/base.html' %}
 
-{% block title %} Compare {% endblock %}
+{% load staticfiles %}
+
+{% block title %}{{ manufacturer_name }} {{model_name}}{% endblock %}
+
+{% block body_block %}
+	<!--- 
+	Speed: {{model.speed}}
+	Acceleration: {{model.acceleration}}
+	Handling: {{model.handling}}
+	Security: {{model.security}}
+	Average: {{model.averageRatings}}
+	-->
+	<script>
+	customOnload = function(){
+		$("[name='speed1Stars']").css('width',({{model2.speed}}*10).toString() + "%");
+		$("[name='acceleration1Stars']").css('width',({{model2.acceleration}}*10).toString() + "%");
+		$("[name='handling1Stars']").css('width',({{model2.handling}}*10).toString() + "%");
+		$("[name='security1Stars']").css('width',({{model2.security}}*10).toString() + "%");
+		$("[name='averageRatings1Stars']").css('width',({{model2.averageRatings}}*10).toString() + "%");
+		$("[name='speed2Stars']").css('width',({{model2.speed}}*10).toString() + "%");
+		$("[name='acceleration1Stars']").css('width',({{model2.acceleration}}*10).toString() + "%");
+		$("[name='handling2Stars']").css('width',({{model2.handling}}*10).toString() + "%");
+		$("[name='security2Stars']").css('width',({{model2.security}}*10).toString() + "%");
+		$("[name='averageRatings2Stars']").css('width',({{model2.averageRatings}}*10).toString() + "%");
+	}
+	</script>
+    <h1 style="color:white;">Comparing {{ manufacturer1_name }} {{ model1_name }} and {{ manufacturer2_name }} {{ model2_name }}</h1>
+	<table><tr><td>
+    {% if manufacturer1 %}
+        {% if model1 %}
+                  <!--
+                 {%if model.picture%}
+                       <img width="360" height="200" src="/{{model.picture.url}}">
+                  
+                 {% endif %}
+                 -->
+        <ul class="list-group">
+                    {%if model1.picture%}
+                               <li class="list-group-item" style="background:gray;"><img width="400" height="200" src="/{{model1.picture.url}}"></li>
+                    {% else %}
+                                <li class="list-group-item">No picture available</li>
+                    {% endif %}
+                    <li class="list-group-item">Model: {{model1.title}}</li>
+                    <li class="list-group-item">Speed: 
+                    
+                    <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="speed1Stars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+                    
+                    </li>
+                   
+                    <li 
+                     {%if model2 and model1.acceleration < model2.acceleration%}
+                    style="background-color: #000000;" 
+                    {%endif%}
+                    class="list-group-item">
+                    
+                    Acceleration: 
+                    <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="acceleration1Stars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+					</li>
+                    <li 
+                     {%if model2 and model1.handling < model2.handling%}
+                    style="background-color: #000000;" 
+                    {%endif%}
+                    class="list-group-item">
+                     Handling: <span class="stars">
+                    <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="handling1Stars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+					</li>
+                    <li 
+                     {%if model2 and model1.security < model2.security%}
+                    style="background-color: #000000;" 
+                    {%endif%}
+                    class="list-group-item">
+                    Security: <span class="stars">
+                	<span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="security1Stars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+                    </li>
+                    <li 
+                     {%if model2 and model1.averageRatings < model2.averageRatings%}
+                    style="background-color: #000000;" 
+                    {%endif%}
+                    class="list-group-item">
+                    Average ratings: <span class="stars">
+                    <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="averageRatings1Stars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+					</span></li>
+                    <li 
+                     {%if model2 and model1.price > model2.price%}
+                    style="background-color: #000000;" 
+                    {%endif%}
+                    class="list-group-item">
+                    Price: {{model1.price}}</li>
+                    <li 
+                     {%if model2 and model1.dateOfRelease < model2.dateOfRelease%}
+                    style="background-color: #000000;" 
+                    {%endif%}
+                    class="list-group-item">
+                    Date of release: {{model1.dateOfRelease}}</li>
+                    <li class="list-group-item">Got one?<br/><a href="{% url 'rate' model1.manufacturer.slug  model1.slug %}">Click here to review this car.</a></li>
+           
+                    
+                </ul>
+        {% else %}
+                <h3 style="color:white;">Model does not exist</h3>
+        {% endif %}
+    {% else %}
+         <h3 style="color:white;">Manufacturer is not registered.</h3>  
+    {% endif %}         
+    
+    </td><td>
+
+    {% if manufacturer2 %}
+        {% if model2 %}
+                  <!--
+                 {%if model.picture%}
+                       <img width="360" height="200" src="/{{model.picture.url}}">
+                  
+                 {% endif %}
+                 -->
+        <ul class="list-group">
+                    {%if model2.picture%}
+                               <li class="list-group-item" style="background:gray;"><img width="400" height="200" src="/{{model2.picture.url}}"></li>
+                    {% else %}
+                                <li class="list-group-item">No picture available</li>
+                    {% endif %}
+                    <li class="list-group-item">Model: {{model2.title}}</li>
+                    <li 
+                     {%if model1.speed > model2.speed%}
+                    style="background-color: #000000;" 
+                    {%endif%}
+                    class="list-group-item">
+                    Speed: 
+                    
+                    <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="speed2Stars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+                    
+                    </li>
+                    <li 
+                     {%if model1.acceleration > model2.acceleration%}
+                    style="background-color: #000000;" 
+                    {%endif%}
+                    class="list-group-item">
+                    Acceleration: 
+                    <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="acceleration2Stars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+					</li>
+                    <li 
+                     {%if model1.handling > model2.handling%}
+                    style="background-color: #000000;" 
+                    {%endif%}
+                    class="list-group-item">
+                     Handling: <span class="stars">
+                    <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="handling2Stars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+					</li>
+                    <li 
+                     {%if model1.security > model2.security%}
+                    style="background-color: #000000;" 
+                    {%endif%}
+                    class="list-group-item">
+                    Security: <span class="stars">
+                	<span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="security2Stars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+                    </li>
+                    <li 
+                     {%if model1.averageRatings > model2.averageRatings%}
+                    style="background-color: #000000;" 
+                    {%endif%}
+                    class="list-group-item">
+                    Average ratings: <span class="stars">
+                    <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
+				    <span name="averageRatings2Stars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
+					</span>
+					</span></li>
+                    <li 
+                     {%if model1.price < model2.price%}
+                    style="background-color: #000000;" 
+                    {%endif%}
+                    class="list-group-item">Price: {{model2.price}}</li>
+                    <li 
+                     {%if model1.dateOfRelease > model2.dateOfRelease%}
+                    style="background-color: #000000;" 
+                    {%endif%}
+                    class="list-group-item">
+                    Date of release: {{model2.dateOfRelease}}</li>
+                    <li class="list-group-item">Got one?<br/><a href="{% url 'rate' model2.manufacturer.slug  model2.slug %}">Click here to review this car.</a></li>
+           
+                    
+                </ul>
+        {% else %}
+                <h3 style="color:white;">Model does not exist</h3>
+        {% endif %}
+    {% else %}
+         <h3 style="color:white;">Manufacturer is not registered.</h3>  
+    {% endif %}   
+    </td></tr></table>      
+                
+{% endblock %}
