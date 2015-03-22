@@ -14,13 +14,13 @@
 	-->
 	<script>
 	customOnload = function(){
-		$("[name='speed1Stars']").css('width',({{model2.speed}}*10).toString() + "%");
-		$("[name='acceleration1Stars']").css('width',({{model2.acceleration}}*10).toString() + "%");
-		$("[name='handling1Stars']").css('width',({{model2.handling}}*10).toString() + "%");
-		$("[name='security1Stars']").css('width',({{model2.security}}*10).toString() + "%");
-		$("[name='averageRatings1Stars']").css('width',({{model2.averageRatings}}*10).toString() + "%");
+		$("[name='speed1Stars']").css('width',({{model1.speed}}*10).toString() + "%");
+		$("[name='acceleration1Stars']").css('width',({{model1.acceleration}}*10).toString() + "%");
+		$("[name='handling1Stars']").css('width',({{model1.handling}}*10).toString() + "%");
+		$("[name='security1Stars']").css('width',({{model1.security}}*10).toString() + "%");
+		$("[name='averageRatings1Stars']").css('width',({{model1.averageRatings}}*10).toString() + "%");
 		$("[name='speed2Stars']").css('width',({{model2.speed}}*10).toString() + "%");
-		$("[name='acceleration1Stars']").css('width',({{model2.acceleration}}*10).toString() + "%");
+		$("[name='acceleration2Stars']").css('width',({{model2.acceleration}}*10).toString() + "%");
 		$("[name='handling2Stars']").css('width',({{model2.handling}}*10).toString() + "%");
 		$("[name='security2Stars']").css('width',({{model2.security}}*10).toString() + "%");
 		$("[name='averageRatings2Stars']").css('width',({{model2.averageRatings}}*10).toString() + "%");
@@ -43,8 +43,13 @@
                                 <li class="list-group-item">No picture available</li>
                     {% endif %}
                     <li class="list-group-item">Model: {{model1.title}}</li>
-                    <li class="list-group-item">Speed: 
                     
+                    <li 
+                     {%if model2 and model1.speed < model2.speed%}
+                    style="background-color: #AAAAAA;" 
+                    {%endif%}
+                    class="list-group-item">
+                    Speed: 
                     <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
 				    <span name="speed1Stars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
 					</span>
@@ -53,10 +58,9 @@
                    
                     <li 
                      {%if model2 and model1.acceleration < model2.acceleration%}
-                    style="background-color: #000000;" 
+                    style="background-color: #AAAAAA;" 
                     {%endif%}
                     class="list-group-item">
-                    
                     Acceleration: 
                     <span style="display: block; width: 130px; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 0;">
 				    <span name="acceleration1Stars" style="display: block; width: 0; height: 13px; background: url(/static/images/star-rating-sprite.png) 0 -13px;"></span>
@@ -64,7 +68,7 @@
 					</li>
                     <li 
                      {%if model2 and model1.handling < model2.handling%}
-                    style="background-color: #000000;" 
+                    style="background-color: #AAAAAA;" 
                     {%endif%}
                     class="list-group-item">
                      Handling: <span class="stars">
@@ -74,7 +78,7 @@
 					</li>
                     <li 
                      {%if model2 and model1.security < model2.security%}
-                    style="background-color: #000000;" 
+                    style="background-color: #AAAAAA;" 
                     {%endif%}
                     class="list-group-item">
                     Security: <span class="stars">
@@ -84,7 +88,7 @@
                     </li>
                     <li 
                      {%if model2 and model1.averageRatings < model2.averageRatings%}
-                    style="background-color: #000000;" 
+                    style="background-color: #AAAAAA;" 
                     {%endif%}
                     class="list-group-item">
                     Average ratings: <span class="stars">
@@ -94,13 +98,13 @@
 					</span></li>
                     <li 
                      {%if model2 and model1.price > model2.price%}
-                    style="background-color: #000000;" 
+                    style="background-color: #AAAAAA;" 
                     {%endif%}
                     class="list-group-item">
                     Price: {{model1.price}}</li>
                     <li 
                      {%if model2 and model1.dateOfRelease < model2.dateOfRelease%}
-                    style="background-color: #000000;" 
+                    style="background-color: #AAAAAA;" 
                     {%endif%}
                     class="list-group-item">
                     Date of release: {{model1.dateOfRelease}}</li>
@@ -134,7 +138,7 @@
                     <li class="list-group-item">Model: {{model2.title}}</li>
                     <li 
                      {%if model1.speed > model2.speed%}
-                    style="background-color: #000000;" 
+                    style="background-color: #AAAAAA;" 
                     {%endif%}
                     class="list-group-item">
                     Speed: 
@@ -146,7 +150,7 @@
                     </li>
                     <li 
                      {%if model1.acceleration > model2.acceleration%}
-                    style="background-color: #000000;" 
+                    style="background-color: #AAAAAA;" 
                     {%endif%}
                     class="list-group-item">
                     Acceleration: 
@@ -156,7 +160,7 @@
 					</li>
                     <li 
                      {%if model1.handling > model2.handling%}
-                    style="background-color: #000000;" 
+                    style="background-color: #AAAAAA;" 
                     {%endif%}
                     class="list-group-item">
                      Handling: <span class="stars">
@@ -166,7 +170,7 @@
 					</li>
                     <li 
                      {%if model1.security > model2.security%}
-                    style="background-color: #000000;" 
+                    style="background-color: #AAAAAA;" 
                     {%endif%}
                     class="list-group-item">
                     Security: <span class="stars">
@@ -176,7 +180,7 @@
                     </li>
                     <li 
                      {%if model1.averageRatings > model2.averageRatings%}
-                    style="background-color: #000000;" 
+                    style="background-color: #AAAAAA;" 
                     {%endif%}
                     class="list-group-item">
                     Average ratings: <span class="stars">
@@ -186,12 +190,12 @@
 					</span></li>
                     <li 
                      {%if model1.price < model2.price%}
-                    style="background-color: #000000;" 
+                    style="background-color: #AAAAAA;" 
                     {%endif%}
                     class="list-group-item">Price: {{model2.price}}</li>
                     <li 
                      {%if model1.dateOfRelease > model2.dateOfRelease%}
-                    style="background-color: #000000;" 
+                    style="background-color: #AAAAAA;" 
                     {%endif%}
                     class="list-group-item">
                     Date of release: {{model2.dateOfRelease}}</li>
