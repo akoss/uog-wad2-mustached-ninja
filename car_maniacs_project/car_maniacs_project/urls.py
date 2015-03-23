@@ -12,6 +12,7 @@ class MyRegistrationView(RegistrationView):
         return '/carwebsite/add_profile/'
 
 urlpatterns = patterns('',
+    url(r'^', include('carwebsite.urls', namespace="carwebsite")),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^carwebsite/', include('carwebsite.urls')),
         #Add in this url pattern to override the default pattern in accounts.
