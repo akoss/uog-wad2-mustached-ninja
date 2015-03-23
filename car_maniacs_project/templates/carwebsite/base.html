@@ -45,6 +45,7 @@
                 <li><a href="{% url 'top_rated' %}">Users' favourites</a></li>
                 <li><a href="{% url 'new_cars' %}">New Cars</a></li>
                 <li><a href="{% url 'compare' %}">Compare</a></li>
+                <li><a href="{% url 'ethics' %}">Ethics</a></li>
                     {% if user.is_authenticated %}
                          <li><a href="{% url 'auth_logout' %}?next=/carwebsite/">Logout</a></li>
                     {% else %}

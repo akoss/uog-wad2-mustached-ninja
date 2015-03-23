@@ -42,7 +42,15 @@ def top_rated(request):
     context_dict={'favourites':favourite_cars}
 	
     return render(request, 'carwebsite/top_rated.html', context_dict)
-    
+
+def ethics(request):
+
+    context_dict={}
+	 
+    return render(request,'carwebsite/ethics-statement.html', context_dict)
+	 
+
+
 def manufacturer(request, manufacturer_name_slug):
 
     context_dict = {}
