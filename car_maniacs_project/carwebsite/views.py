@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.template import RequestContext
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
-
+import json
 
 def index(request):
     
@@ -158,6 +158,29 @@ def rate(request, manufacturer_name_slug,model_name_slug):
 		
     return render(request, 'carwebsite/rate.html', context_dict)
 
+def get_manufacturers(request): 
+	man = Manufacturer.objects.all()
+	to_return = [] 
+	
+	for each in man: 
+		to_return.append({"name":each.name,"slug":each.slug}) 
+	
+	return HttpResponse(json.dumps(to_return), content_type="application/json")
+
+def get_models(request,manufacturer_name_slug): 
+	to_return = [] 
+
+	try:
+		manufacturer = Manufacturer.objects.get(slug=manufacturer_name_slug)
+		models = Model.objects.filter(manufacturer=manufacturer).order_by('title')
+	
+		for each in models: 
+			to_return.append({"title":each.title,"slug":each.slug}) 
+	
+	except:
+		pass
+	
+	return HttpResponse(json.dumps(to_return), content_type="application/json")
 
 def search(request):
     context_dict = {}
