@@ -46,7 +46,7 @@
     				</li>
     				
                     {%if model.picture%}
-                               <li class="list-group-item" style="background:gray;"><img width="400" src="/{{model.picture.url}}"></li>
+                               <li class="list-group-item" style="background:gray;"><img style="max-width: 400px;"  src="/{{model.picture.url}}"></li>
                     {% else %}
                                 <li class="list-group-item">No picture available</li>
                     {% endif %}
