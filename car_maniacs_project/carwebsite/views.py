@@ -51,7 +51,7 @@ def ethics(request):
 	 
 
 
-def manufacturer(request, manufacturer_name_slug):
+def manufacturer(request, manufacturer_name_slug=None):
 
     context_dict = {}
 
