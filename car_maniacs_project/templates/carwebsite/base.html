@@ -63,8 +63,8 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
         
-	<form class="form-inline" id="user_form" method="post" action="{% url 'search' %}">{% csrf_token %}
-     <input class="form-control" type="text" name="query" id="query" placeholder="Search here" /><br/><br/>
+	<form class="form" role="form" id="user_form" method="post" action="{% url 'search' %}">{% csrf_token %}
+     <input class="form-control" type="text" name="query" id="query" placeholder="Search here" /><br/>
      <input class="btn btn-primary" type="submit" name="submit" value="Search" />
 	</form>	<br/>
         <strong>Manufacturers</strong><br/><br/>
