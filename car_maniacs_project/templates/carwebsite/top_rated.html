@@ -12,7 +12,7 @@
                 {% for model in favourites %}
                         <li class="list-group-item"><a href="{% url 'model' model.manufacturer.slug  model.slug %} ">{{model.manufacturer.name}} {{model.title}} - {{model.averageRatings}}<br/>
                         {%if model.picture%}
-                        <img style="max-width: 90%;" src="/{{model.picture.url}}">
+                        <img style="max-width: 100%;" src="/{{model.picture.url}}">
 	                    {% endif %}
                         
                         </a></li>
