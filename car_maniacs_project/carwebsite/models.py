@@ -24,6 +24,7 @@ class News(models.Model):
     link = models.CharField(max_length=256)
     slug = models.SlugField(unique=True,max_length=50)
     picture = models.ImageField(upload_to='static/images', blank=True)
+    show = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)

@@ -18,6 +18,7 @@
         {% if news %}
         <ul class="list-group" style="min-height: 150;">
                 {% for item in news %}
+                	{% if item.show %}
                         <li class="list-group-item">
                          {% if item.picture %}
                         <img align="right" height="150" style="display:inline;"  src="/{{item.picture.url}}">
@@ -26,6 +27,7 @@
                         <h2>{{item.title}}</h2>{{item.intro}} <br/><br/><a href="{{item.link}}">Click here to read more!</a>
                        
                         </li>
+                    {% endif %}
                 {% endfor %}
         </ul>
 		{% endif %}
