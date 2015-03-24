@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from carwebsite.models import Manufacturer,Model,Review
+from carwebsite.models import Manufacturer,Model,Review,News
 from django.db.models import Q
 from django.template import RequestContext
 from django.shortcuts import redirect
@@ -8,10 +8,11 @@ from django.contrib.auth.decorators import login_required
 import json
 
 def index(request):
-    
-    context_dict={}
+	context_dict={}
+	news = News.objects.all()
+	context_dict["news"] = news
 	
-    return render(request, 'carwebsite/index.html', context_dict)
+	return render(request, 'carwebsite/index.html', context_dict)
 	
 def news(request):
 

@@ -18,6 +18,21 @@ class Manufacturer(models.Model):
    # class Meta:
    #    verbose_name_plural="Categories";
 
+class News(models.Model):
+    title = models.CharField(max_length=256)
+    intro = models.CharField(max_length=512)
+    link = models.CharField(max_length=256)
+    slug = models.SlugField(unique=True,max_length=50)
+    picture = models.ImageField(upload_to='static/images', blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(News, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.title
+
+
 class Model(models.Model):
     picture = models.ImageField(upload_to='static/images', blank=True)
     manufacturer = models.ForeignKey(Manufacturer)
