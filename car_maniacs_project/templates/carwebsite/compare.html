@@ -14,20 +14,80 @@
 	-->
 	<script>
 	customOnload = function(){
-		$("[name='speed1Stars']").css('width',({{model1.speed}}*10).toString() + "%");
-		$("[name='acceleration1Stars']").css('width',({{model1.acceleration}}*10).toString() + "%");
-		$("[name='handling1Stars']").css('width',({{model1.handling}}*10).toString() + "%");
-		$("[name='security1Stars']").css('width',({{model1.security}}*10).toString() + "%");
-		$("[name='averageRatings1Stars']").css('width',({{model1.averageRatings}}*10).toString() + "%");
-		$("[name='speed2Stars']").css('width',({{model2.speed}}*10).toString() + "%");
-		$("[name='acceleration2Stars']").css('width',({{model2.acceleration}}*10).toString() + "%");
-		$("[name='handling2Stars']").css('width',({{model2.handling}}*10).toString() + "%");
-		$("[name='security2Stars']").css('width',({{model2.security}}*10).toString() + "%");
-		$("[name='averageRatings2Stars']").css('width',({{model2.averageRatings}}*10).toString() + "%");
-	}
+
+	$(document).ready(function() { 
+
+		var manufacturer1_name = "{{ manufacturer1_name }}"; 
+		var manufacturer2_name = "{{ manufacturer2_name }}";
+		var model1_name = "{{ model1_name }}"; 
+		var model2_name = "{{ model2_name }}"; 
+		
+		if(manufacturer1_name == "" || manufacturer2_name == ""){		
+			$('#select_manufacturer')
+				.find('option')
+				.remove()
+				.end(); 
+			$('#select_model')
+				.find('option')
+				.remove()
+				.end(); 
+			$("#select_manufacturer").append('<option value="">--</option>');
+			$.ajax({
+			  type: 'GET',
+			  url: '/get_manufacturers',
+			  dataType: 'json',
+			  success: function(jsonData) {
+				$.each(jsonData,function(key, value) 
+				{
+					$("#select_manufacturer").append('<option value=' + value["slug"] + '>' + value["name"] + '</option>');
+				});
+			  },
+			  error: function() {
+			  }
+			});
+		}
+		$( "#select_manufacturer" ).change(function() {
+			$('#select_model')
+				.find('option')
+				.remove()
+				.end(); 
+			$("#select_model").append('<option value="">--</option>');
+			if($( "#select_manufacturer" ).val() == ""){
+
+			} else {
+			  $.ajax({
+				  type: 'GET',
+				  url: '/get_models/' + $( "#select_manufacturer" ).val() + "/",
+				  dataType: 'json',
+				  success: function(jsonData) {
+					$.each(jsonData,function(key, value) 
+					{
+						$("#select_model").append('<option value=' + value["slug"] + '>' + value["title"] + '</option>');
+					});
+				  },
+				  error: function() {
+				  }
+				});
+			}
+		});
+		$( "#select_model" ).change(function() {
+			if(! $( "#select_model" ).val() == ""){
+				var temp; 
+				if(window.location.href.slice(-1) == "/"){
+					temp = "";
+				} else {
+					temp = "/"
+				}
+				window.location += temp + $( "#select_manufacturer" ).val() + "/" + $( "#select_model" ).val() + "/";
+			}
+		});
+	 });
+	 }
 	</script>
-    <h1 style="color:white;">Comparing {{ manufacturer1_name }} {{ model1_name }} and {{ manufacturer2_name }} {{ model2_name }}</h1>
-	<table><tr><td>
+	
+    <h1 style="color:white;">Comparing {{ manufacturer1_name }} {{ model1_name }} {%if manufacturer2_name %} and {{ manufacturer2_name }} {{ model2_name }}{% endif %}</h1>
+	<table><tr><td style="vertical-align:top">
+	
     {% if manufacturer1 %}
         {% if model1 %}
                   <!--
@@ -36,7 +96,7 @@
                   
                  {% endif %}
                  -->
-        <ul class="list-group">
+        <ul class="list-group ">
                     {%if model1.picture%}
                                <li class="list-group-item" style="background:gray;"><img width="400" height="200" src="/{{model1.picture.url}}"></li>
                     {% else %}
@@ -115,11 +175,9 @@
         {% else %}
                 <h3 style="color:white;">Model does not exist</h3>
         {% endif %}
-    {% else %}
-         <h3 style="color:white;">Manufacturer is not registered.</h3>  
     {% endif %}         
     
-    </td><td>
+    </td><td style="vertical-align:top">
 
     {% if manufacturer2 %}
         {% if model2 %}
@@ -206,9 +264,23 @@
         {% else %}
                 <h3 style="color:white;">Model does not exist</h3>
         {% endif %}
-    {% else %}
-         <h3 style="color:white;">Manufacturer is not registered.</h3>  
     {% endif %}   
+    
+    
+    
+	{% if not manufacturer1 or not manufacturer2 %} 
+	<ul class="list-group" style="min-width: 435px;">
+		<li style="vertical-align:top" class="list-group-item"><h3>Choose a car!</h3></li>
+		<li style="vertical-align:top" class="list-group-item">Manufacturer<br/>
+		<select id="select_manufacturer"><option value="">--</option></select>
+		</li>
+		<li style="vertical-align:top" class="list-group-item">Model<br/>
+		<select id="select_model"><option value="">--</option></select>
+		</li>
+	</ul>
+	
+	{% endif %}
+    
     </td></tr></table>      
                 
 {% endblock %}

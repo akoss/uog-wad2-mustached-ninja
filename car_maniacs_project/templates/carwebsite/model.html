@@ -21,7 +21,7 @@
 		$("[name='averageRatingsStars']").css('width',({{model.averageRatings}}*10).toString() + "%");
 	}
 	</script>
-    <h1 style="color:white;">{{ manufacturer_name }}</h1>
+    <h1 style="color:white;">{{ manufacturer_name }} {{ model_name }}</h1>
     {% if rated %}
     <div class="alert alert-success">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -37,7 +37,7 @@
                   
                  {% endif %}
                  -->
-        <ul class="list-group">
+        <ul style="max-width: 435px;" class="list-group">
                     {%if model.picture%}
                                <li class="list-group-item" style="background:gray;"><img width="400" height="200" src="/{{model.picture.url}}"></li>
                     {% else %}
