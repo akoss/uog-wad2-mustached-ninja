@@ -10,7 +10,7 @@
         {% if newest %}
         <ul class="list-group">
                 {% for car in newest %}
-                        <li class="list-group-item"><a href="{% url 'model' car.manufacturer.slug  car.slug %} ">{{car.title}}- released {{car.dateOfRelease}}</a></li>
+                        <li class="list-group-item"><a href="{% url 'model' car.manufacturer.slug  car.slug %} ">{{car.manufacturer.name}} {{car.title}} (Released on {{car.dateOfRelease}})</a></li>
                 {% endfor %}
                 </ul>
         {% else %}
