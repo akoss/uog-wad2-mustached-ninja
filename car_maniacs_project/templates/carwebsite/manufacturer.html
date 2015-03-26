@@ -20,10 +20,11 @@
         {% endif %}
     {% else %}
     	 <h1 style="color:white;">Manufacturers</h1>
-	
+		<h3 style="color:white;">No manufacturers registered</h3>
     	<ul style="max-width: 435px;" class="list-group">
     	<li class="list-group-item">
     	
+		
 		{% load carwebsite_extras %}
 		{% get_manufacturer_list manufacturer %}
     	</li>
