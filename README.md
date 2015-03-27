@@ -53,6 +53,7 @@ $ python manage.py runserver
 * Login
 
 Open your web browser and type in: 127.0.0.1:8000/carwebsite
+
 Login with the following credentials: username=test, password=test
 
 * Enjoy
