@@ -6,11 +6,15 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'car_maniacs_project.settings')
 import django
 django.setup()
 
-from carwebsite.models import Manufacturer, Model
+from carwebsite.models import Manufacturer, Model,User
 from datetime import *
 
 
 def populate():
+
+    user=User.objects.create_user('test','email@email.com','test')
+    user.save()
+    
     toyota = add_manu(name='Toyota',
         image="static/images/Toyota.jpg")
 
@@ -133,6 +137,7 @@ def add_model(manu, title, speed, acceleration, handling, security, dateOfReleas
 def add_manu(name,image):
     manufacturer = Manufacturer.objects.get_or_create(name=name,picture=image)[0]
     return manufacturer
+
 
 # Start execution here!
 if __name__ == '__main__':
