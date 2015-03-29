@@ -3,7 +3,6 @@ from carwebsite import views
 
 urlpatterns = patterns('',
         url(r'^$', views.index, name='index'),
-		url(r'^news',views.news,name='news'),
         url(r'^manufacturer/(?P<manufacturer_name_slug>[\w\-]+)/$', views.manufacturer, name='manufacturer'), 
         url(r'^manufacturer/(?P<manufacturer_name_slug>[\w\-]+)/(?P<model_name_slug>[\w\-]+)/$', views.model, name='model'),  
         url(r'^manufacturer/(?P<manufacturer_name_slug>[\w\-]+)/(?P<model_name_slug>[\w\-]+)//(?P<rated>[\w\-]+)$', views.model, name='model'),        

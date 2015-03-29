@@ -2,10 +2,10 @@
 
 {% load staticfiles %}
 
-{% block title %}{{ manufacturer_name }} {{model_name}}{% endblock %}
+{% block title %}{{ manufacturer.name }} {{model.title}}{% endblock %}
 
 {% block body_block %}
-    <h1 style="color:white;">{{ manufacturer_name }}</h1>
+    <h1 style="color:white;">{{ manufacturer.name }}</h1>
     {% if manufacturer %}
         {% if model %}
                   <!--

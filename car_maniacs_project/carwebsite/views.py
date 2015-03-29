@@ -9,20 +9,15 @@ import json
 
 def index(request):
 	context_dict={}
+	
+	# We display news on the front page: 
 	news = News.objects.all()
 	context_dict["news"] = news
 	
 	return render(request, 'carwebsite/index.html', context_dict)
-	
-def news(request):
-
-    context_dict={}
-	 
-    return render(request,'carwebsite/news.html', context_dict)
-	 
 
 def new_cars(request):
-
+	# Getting the top 5 cars by date of release 
     newest_cars = Model.objects.order_by('-dateOfRelease')[:5]
     
     context_dict={'newest':newest_cars}
@@ -37,7 +32,7 @@ def compare(request):
     return render(request, 'carwebsite/compare.html', context_dict)
     
 def top_rated(request):
-
+	# Getting the top 5 cars by average ratings 
     favourite_cars = Model.objects.order_by('-averageRatings')[:5]
     
     context_dict={'favourites':favourite_cars}
@@ -45,7 +40,7 @@ def top_rated(request):
     return render(request, 'carwebsite/top_rated.html', context_dict)
 
 def ethics(request):
-
+	# This is just a simple static ethics statement
     context_dict={}
 	 
     return render(request,'carwebsite/ethics-statement.html', context_dict)
@@ -58,7 +53,6 @@ def manufacturer(request, manufacturer_name_slug=None):
 
     try:
         manufacturer = Manufacturer.objects.get(slug=manufacturer_name_slug)
-        context_dict['manufacturer_name'] = manufacturer.name
         models = Model.objects.filter(manufacturer=manufacturer).order_by('-averageRatings')
         context_dict['models'] = models
         context_dict['manufacturer'] = manufacturer
@@ -70,17 +64,16 @@ def manufacturer(request, manufacturer_name_slug=None):
     
 def model(request, manufacturer_name_slug,model_name_slug, rated=False):
     context_dict = {}
+    # Rated is passed as True when we're redirected from the rate view. 
+    # If rated is True, we display a message that the user has successfully rated the car. 
+    
     context_dict["rated"] = rated
       
     try:
         manufacturer = Manufacturer.objects.get(slug=manufacturer_name_slug)
         model=Model.objects.get(slug=model_name_slug)
-        context_dict['manufacturer_name'] = manufacturer.name
-        context_dict['model_name']=model.title
         if model.manufacturer==manufacturer:
             context_dict['model']=model
-            print "MODEL: "
-            print model
         context_dict['manufacturer'] = manufacturer
     except:
         pass
@@ -90,11 +83,10 @@ def model(request, manufacturer_name_slug,model_name_slug, rated=False):
 def compare(request, manufacturer1_name_slug=None,manufacturer2_name_slug=None,model1_name_slug=None,model2_name_slug=None):
     context_dict = {}
     
+    # We need two manufacturers and two models  
     try:
         manufacturer1 = Manufacturer.objects.get(slug=manufacturer1_name_slug)
         model1=Model.objects.get(slug=model1_name_slug)
-        context_dict['manufacturer1_name'] = manufacturer1.name
-        context_dict['model1_name']=model1.title
         if model1.manufacturer==manufacturer1:
             context_dict['model1']=model1
         context_dict['manufacturer1'] = manufacturer1
@@ -104,8 +96,6 @@ def compare(request, manufacturer1_name_slug=None,manufacturer2_name_slug=None,m
     try:
         manufacturer2 = Manufacturer.objects.get(slug=manufacturer2_name_slug)
         model2=Model.objects.get(slug=model2_name_slug)
-        context_dict['manufacturer2_name'] = manufacturer2.name
-        context_dict['model2_name']=model2.title
         if model2.manufacturer==manufacturer2:
             context_dict['model2']=model2
         context_dict['manufacturer2'] = manufacturer2
@@ -123,9 +113,6 @@ def rate(request, manufacturer_name_slug,model_name_slug):
     try:
         manufacturer = Manufacturer.objects.get(slug=manufacturer_name_slug)
         model=Model.objects.get(slug=model_name_slug)
-        context_dict['manufacturer_name'] = manufacturer.name
-        context_dict['model_name']=model.title
-
         if model.manufacturer==manufacturer:
             context_dict['model']=model
         context_dict['manufacturer'] = manufacturer
@@ -160,6 +147,9 @@ def rate(request, manufacturer_name_slug,model_name_slug):
     return render(request, 'carwebsite/rate.html', context_dict)
 
 def get_manufacturers(request): 
+	# Returns a JSON with all manufacturers 
+	# Used for AJAX requests 
+	
 	man = Manufacturer.objects.all()
 	to_return = [] 
 	
@@ -169,6 +159,8 @@ def get_manufacturers(request):
 	return HttpResponse(json.dumps(to_return), content_type="application/json")
 
 def get_models(request,manufacturer_name_slug): 
+	# Returns a JSON with models of a specific manufacturer 
+	# Used for AJAX requests
 	to_return = [] 
 
 	try:

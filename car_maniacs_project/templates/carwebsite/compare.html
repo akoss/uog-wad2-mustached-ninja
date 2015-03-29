@@ -40,10 +40,10 @@
 
 	$(document).ready(function() { 
 
-		var manufacturer1_name = "{{ manufacturer1_name }}"; 
-		var manufacturer2_name = "{{ manufacturer2_name }}";
-		var model1_name = "{{ model1_name }}"; 
-		var model2_name = "{{ model2_name }}"; 
+		var manufacturer1_name = "{{ manufacturer1.name }}"; 
+		var manufacturer2_name = "{{ manufacturer2.name }}";
+		var model1_name = "{{ model1.title }}"; 
+		var model2_name = "{{ model2.title }}"; 
 		
 		if(manufacturer1_name == "" || manufacturer2_name == ""){		
 			$('#select_manufacturer')
@@ -108,7 +108,7 @@
 	 }
 	</script>
 	
-    <h1 style="color:white;">Comparing {{ manufacturer1_name }} {{ model1_name }} {%if manufacturer2_name %} and {{ manufacturer2_name }} {{ model2_name }}{% endif %}</h1>
+    <h1 style="color:white;">Comparing {{ manufacturer1.name }} {{ model1.title }} {%if manufacturer2.name %} and {{ manufacturer2.name }} {{ model2.title }}{% endif %}</h1>
 	<table><tr><td style="vertical-align:top">
 	
     {% if manufacturer1 %}

@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 
-{% block title %}{{ manufacturer_name }}{% endblock %}
+{% block title %}{{ manufacturer.name }}{% endblock %}
 
 {% block body_block %}
     {% if manufacturer %}
@@ -20,7 +20,6 @@
         {% endif %}
     {% else %}
     	 <h1 style="color:white;">Manufacturers</h1>
-		<h3 style="color:white;">No manufacturers registered</h3>
     	<ul style="max-width: 435px;" class="list-group">
     	<li class="list-group-item">
     	
