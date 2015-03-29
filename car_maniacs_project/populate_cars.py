@@ -6,7 +6,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'car_maniacs_project.settings')
 import django
 django.setup()
 
-from carwebsite.models import Manufacturer, Model,User
+from carwebsite.models import Manufacturer, Model,User, News
 from datetime import *
 
 
@@ -120,13 +120,26 @@ def populate():
         price="70000",
         picture="static/images/AMG.jpg")
         
-        
+    add_news(title="Driving licence changes: what do paper licence holders need to know?",
+        intro="The paper element of the driving licence is being scrapped in June. Readers who only have the paper counterpart of the licence ask what they need to do when the changes are enforced",
+        link="http://www.telegraph.co.uk/finance/personalfinance/11028839/Driving-licence-changes-what-do-paper-licence-holders-need-to-know.html",
+        show=True,
+        picture="static/images/elderly-driver_2164765b.jpg")
+               
 
 
     # Print out what we have added to the user.
     for manufac in Manufacturer.objects.all():
         for model in Model.objects.filter(manufacturer=manufac):
             print "Added " + manufac.name + " " + model.title
+
+    for news in News.objects.all():
+    	print "Added news: " + news.title + " - " + news.link
+
+def add_news(title, intro, link, picture, show):
+    news = News.objects.get_or_create(title=title, intro=intro, link=link, picture=picture,
+                                        show=show)[0]
+    return news
 
 def add_model(manu, title, speed, acceleration, handling, security, dateOfRelease, price,picture):
     model = Model.objects.get_or_create(manufacturer=manu, title=title, speed=speed, acceleration=acceleration,
