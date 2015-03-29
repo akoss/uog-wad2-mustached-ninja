@@ -6,14 +6,37 @@
 
 {% block body_block %}
 	<!--- 
-	Speed: {{model.speed}}
-	Acceleration: {{model.acceleration}}
-	Handling: {{model.handling}}
-	Security: {{model.security}}
-	Average: {{model.averageRatings}}
+	Speed: {{model1.speed}}
+	Acceleration: {{model1.acceleration}}
+	Handling: {{model1.handling}}
+	Security: {{model1.security}}
+	Average: {{model1.averageRatings}}
+	
+	
+	Speed: {{model2.speed}}
+	Acceleration: {{model2.acceleration}}
+	Handling: {{model2.handling}}
+	Security: {{model2.security}}
+	Average: {{model2.averageRatings}}
+	
 	-->
 	<script>
 	customOnload = function(){
+
+		{% if model1 %}
+		$("[name='speed1Stars']").css('width',({{model1.speed}}*10).toString() + "%");
+		$("[name='acceleration1Stars']").css('width',({{model1.acceleration}}*10).toString() + "%");
+		$("[name='handling1Stars']").css('width',({{model1.handling}}*10).toString() + "%");
+		$("[name='security1Stars']").css('width',({{model1.security}}*10).toString() + "%");
+		$("[name='averageRatings1Stars']").css('width',({{model1.averageRatings}}*10).toString() + "%");
+		{% endif %}
+		{% if model2 %}
+		$("[name='speed2Stars']").css('width',({{model2.speed}}*10).toString() + "%");
+		$("[name='acceleration2Stars']").css('width',({{model2.acceleration}}*10).toString() + "%");
+		$("[name='handling2Stars']").css('width',({{model2.handling}}*10).toString() + "%");
+		$("[name='security2Stars']").css('width',({{model2.security}}*10).toString() + "%");
+		$("[name='averageRatings2Stars']").css('width',({{model2.averageRatings}}*10).toString() + "%");
+		{% endif %}
 
 	$(document).ready(function() { 
 
